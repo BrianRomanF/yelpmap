@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const {storeReturnTo} = require ('../middleware');
+const { storeReturnTo } = require('../middleware');
 
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
@@ -33,10 +33,13 @@ module.exports.login = (req, res) => {
 }
 
 module.exports.logout = (req, res) => {
-    req.logout();
-    req.flash('success', "Goodbye!");
-    res.redirect('/campgrounds');
-}
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        req.flash('success', "Goodbye!");
+        res.redirect('/');
+    });
 
+
+}
 
 
